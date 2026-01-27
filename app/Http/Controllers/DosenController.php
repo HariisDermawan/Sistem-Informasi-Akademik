@@ -11,7 +11,7 @@ class DosenController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
+     */ 
     public function index()
     {
         $dosens = Dosen::with(['user:id,name,email', 'prodi:id,nama_prodi'])->get();
