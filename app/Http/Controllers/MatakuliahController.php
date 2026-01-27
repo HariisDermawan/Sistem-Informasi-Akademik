@@ -8,12 +8,21 @@ use Illuminate\Http\Request;
 class MatakuliahController extends Controller
 {
     /**
-     *
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $matakuliah = Matakuliah::with(['prodi:id,name_prodi'])->get();
+        if (!$matakuliah) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Matakuliah tidak ditemukan!'
+            ], 404);
+        }
+        return response()->json([
+            'success' => true,
+            'data' => $matakuliah
+        ], 201);
     }
 
     /**
