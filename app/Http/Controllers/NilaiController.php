@@ -12,7 +12,22 @@ class NilaiController extends Controller
      */
     public function index()
     {
-        //
+        $nilais = Nilai::with([
+            'krs.mahasiswa:id,nama_mahasiswa,nim',
+            'krs.perkuliahan.matakuliah:id,nama_mk,kode_mk'
+        ])->get();
+
+        if ($nilais->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Nilai tidak ditemukan!'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $nilais
+        ], 200);
     }
 
     /**
@@ -28,15 +43,44 @@ class NilaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'krs_id' => 'required|exists:krs,id',
+            'nilai_angka' => 'nullable|numeric|min:0|max:100',
+            'nilai_huruf' => 'nullable|string|max:2'
+        ]);
+        $nilai = Nilai::create($request->only([
+            'krs_id',
+            'nilai_angka',
+            'nilai_huruf'
+        ]));
+        return response()->json([
+            'success' => true,
+            'message' => 'Nilai Berhasil dibuat',
+            'data' => $nilai
+        ], 200);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Nilai $nilai)
+    public function show($id)
     {
-        //
+        $nilai = Nilai::with([
+            'krs.mahasiswa:id,nama_mahasiswa,nim',
+            'krs.perkuliahan.matakuliah:id,nama_mk,kode_mk'
+        ])->find($id);
+
+        if (!$nilai) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Nilai Tidak ditemukan!'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $nilai
+        ], 200);
     }
 
     /**
@@ -50,16 +94,46 @@ class NilaiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Nilai $nilai)
+    public function update(Request $request, $id)
     {
-        //
+        $nilai = Nilai::find($id);
+        if (!$nilai) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Nilai Tidak ditemukan!'
+            ], 404);
+        }
+        $request->validate([
+            'nilai_angka' => 'nullable|numeric|min:0|max:100',
+            'nilai_huruf' => 'nullable|string|max:2'
+        ]);
+        $nilai->update($request->only([
+            'nilai_angka',
+            'nilai_huruf'
+        ]));
+        return response()->json([
+            'success' => true,
+            'message' => 'Nilai Berhasil di update',
+            'data' => $nilai
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Nilai $nilai)
+    public function destroy($id)
     {
-        //
+        $nilai = Nilai::find($id);
+        if (!$nilai) {
+            return response()->json([
+                'success' => false,
+                'message' => 'nilai tidak ditemukan!'
+            ], 404);
+        }
+        $nilai->delete();
+        return response()->json([
+            'success' => true,
+            'data' => $nilai
+        ], 200);
     }
 }
