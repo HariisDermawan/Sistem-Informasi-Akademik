@@ -8,6 +8,8 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PerkuliahanController;
+use App\Http\Controllers\PresensiDosenController;
+use App\Http\Controllers\PresensiMahasiswaController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
@@ -20,6 +22,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('matakuliah', MatakuliahController::class);
         Route::apiResource('nilai', NilaiController::class);
         Route::apiResource('perkuliahan', PerkuliahanController::class);
-        
+        Route::apiResource('presensi-dosen', PresensiDosenController::class);
+        Route::apiResource('presensi-mahasiswa', PresensiMahasiswaController::class);
+
     });
 });
