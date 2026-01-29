@@ -43,12 +43,12 @@
 ## Screenshot
 
 ### Halaman Login
-<p align="center">
+<p align="right">
   <img src="https://github.com/HariisDermawan/Sistem-Informasi-Akademik/blob/main/public/img/login.png" alt="Login SIAKAD" width="800">
 </p>
 
 ### Dashboard
-<p align="center">
+<p align="right">
   <img src="https://github.com/HariisDermawan/Sistem-Informasi-Akademik/blob/main/public/img/dashboard.png" alt="Dashboard SIAKAD" width="800">
 </p>
 
