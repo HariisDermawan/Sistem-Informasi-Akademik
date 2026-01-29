@@ -44,7 +44,7 @@
 
 ### Halaman Login
 <p align="center">
-  <img src="https://github.com/HariisDermawan/Sistem-Informasi-Akademik/blob/main/public/img/login.png" alt="Login SIAKAD" width="500">
+  <img src="https://github.com/HariisDermawan/Sistem-Informasi-Akademik/blob/main/public/img/login.png" alt="Login SIAKAD" width="800">
 </p>
 
 ### Dashboard
