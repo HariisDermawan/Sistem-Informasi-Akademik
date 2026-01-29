@@ -12,20 +12,13 @@ class PresensiDosenController extends Controller
      */
     public function index()
     {
-        $presensis = Presensi_dosen::with(['perkuliahan.matakuliah:id,nama_mk,kode_mk', 'perkuliahan.dosen:id,nama_dosen'])
-            ->get();
+        $presensisdosen = Presensi_dosen::with([
+            'perkuliahan.matakuliah:id,nama_mk,kode_mk', 
+            'perkuliahan.dosen:id,nama_dosen'
+        ])->get();
 
-        if ($presensis->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Presensi dosen tidak ditemukan!'
-            ], 404);
-        }
-
-        return response()->json([
-            'success' => true,
-            'data' => $presensis
-        ], 200);
+        return view('presensiDosen.index', compact('presensisdosen'));
+        
     }
 
     /**

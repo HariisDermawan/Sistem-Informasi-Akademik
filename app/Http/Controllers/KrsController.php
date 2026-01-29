@@ -15,12 +15,7 @@ class KrsController extends Controller
     public function index()
     {
         $krs = Krs::with(['mahasiswa', 'perkuliahan.matakuliah', 'perkuliahan.dosen'])->get();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Daftar KRS Berhasil Diambil',
-            'data'    => $krs
-        ], 200);
+        return view('krs.index', compact('krs'));
     }
 
     /**

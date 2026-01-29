@@ -12,16 +12,12 @@ class PresensiMahasiswaController extends Controller
      */
     public function index()
     {
-        $presensi = Presensi_mahasiswa::with([
+        $presensis = Presensi_mahasiswa::with([
             'krs.mahasiswa:id,nama_mahasiswa,nim',
             'presensi_dosen.perkuliahan.matakuliah:id,nama_mk,kode_mk',
             'presensi_dosen.perkuliahan.dosen:id,nama_dosen'
         ])->get();
-
-        return response()->json([
-            'success' => true,
-            'data' => $presensi
-        ], 200);
+        return view('presensiMhs.index', compact('presensis'));
     }
 
     /**

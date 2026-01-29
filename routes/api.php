@@ -10,6 +10,8 @@ use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PerkuliahanController;
 use App\Http\Controllers\PresensiDosenController;
 use App\Http\Controllers\PresensiMahasiswaController;
+use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\SemesterController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
@@ -24,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('perkuliahan', PerkuliahanController::class);
         Route::apiResource('presensi-dosen', PresensiDosenController::class);
         Route::apiResource('presensi-mahasiswa', PresensiMahasiswaController::class);
-
+        Route::apiResource('prodi', ProdiController::class);
+        Route::apiResource('semester', SemesterController::class);
     });
 });

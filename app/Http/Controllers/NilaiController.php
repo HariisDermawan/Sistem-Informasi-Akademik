@@ -16,18 +16,7 @@ class NilaiController extends Controller
             'krs.mahasiswa:id,nama_mahasiswa,nim',
             'krs.perkuliahan.matakuliah:id,nama_mk,kode_mk'
         ])->get();
-
-        if ($nilais->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Nilai tidak ditemukan!'
-            ], 404);
-        }
-
-        return response()->json([
-            'success' => true,
-            'data' => $nilais
-        ], 200);
+        return view('nilai.index', compact('nilais'));
     }
 
     /**

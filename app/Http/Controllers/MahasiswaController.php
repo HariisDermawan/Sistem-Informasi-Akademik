@@ -14,19 +14,8 @@ class MahasiswaController extends Controller
     public function index()
     {
         $mahasiswa = Mahasiswa::with(['user', 'prodi'])->get();
-
-        if ($mahasiswa->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Daftar mahasiswa masih kosong!'
-            ], 404);
-        }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Daftar Data Mahasiswa',
-            'data'    => $mahasiswa
-        ], 200);
+        $totalMahasiswa = $mahasiswa->count();
+        return view('mahasiswa.index', compact('mahasiswa'));
     }
 
     /**

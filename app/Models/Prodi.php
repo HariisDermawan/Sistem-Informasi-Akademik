@@ -22,10 +22,7 @@ class Prodi extends Model
     }
 
     protected $hidden = [
-        'password',
-        'remember_token',
-        'email_verified_at',
-        'created_at',        
+        'created_at',
         'updated_at',
     ];
 }

@@ -15,11 +15,7 @@ class DosenController extends Controller
     public function index()
     {
         $dosens = Dosen::with(['user:id,name,email', 'prodi:id,nama_prodi'])->get();
-
-        return response()->json([
-            'success' => true,
-            'data' => $dosens
-        ]);
+        return view('dosen.index', compact('dosens'));
     }
 
     /**

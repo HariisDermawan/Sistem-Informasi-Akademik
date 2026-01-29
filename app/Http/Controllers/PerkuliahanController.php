@@ -17,16 +17,7 @@ class PerkuliahanController extends Controller
             'dosen:id,nama_dosen',
             'semester:id,nama_semester'
         ])->get();
-        if ($perkuliahans->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Perkulihan tidak ditemukan!'
-            ], 404);
-        }
-        return response()->json([
-            'success' => true,
-            'data'    => $perkuliahans
-        ], 200);
+        return view('perkuliahan.index', compact('perkuliahans'));
     }
 
     /**

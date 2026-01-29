@@ -15,16 +15,7 @@ class MatakuliahController extends Controller
     public function index()
     {
         $matakuliahs = Matakuliah::with(['prodi:id,nama_prodi'])->get();
-        if ($matakuliahs->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Matakuliah tidak ditemukan!'
-            ], 404);
-        }
-        return response()->json([
-            'success' => true,
-            'data' => $matakuliahs
-        ], 200);
+        return view('matakuliah.index', compact('matakuliahs'));
     }
 
     /**
