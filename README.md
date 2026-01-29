@@ -5,24 +5,40 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <a href="https://github.com/laravel/framework/actions">
+    <img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status">
+  </a>
+  <a href="https://packagist.org/packages/laravel/framework">
+    <img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads">
+  </a>
+  <a href="https://packagist.org/packages/laravel/framework">
+    <img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version">
+  </a>
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/packagist/l/laravel/framework" alt="License">
+  </a>
 </p>
+
+---
 
 ## Deskripsi
 
-Sistem Akademik (SIAKAD) adalah aplikasi berbasis web untuk mengelola aktivitas akademik di sekolah atau universitas. Sistem ini dibangun menggunakan:
+**Sistem Akademik (SIAKAD)** adalah aplikasi web untuk mengelola aktivitas akademik di sekolah atau universitas. Sistem ini dibangun menggunakan teknologi modern untuk pengalaman cepat, aman, dan efisien.
 
-- **Laravel 12** sebagai backend
-- **MySQL** untuk basis data
-- **TailwindCSS** dan **HTML** untuk tampilan frontend
-- **Figma** untuk desain UI/UX
-- **API REST** untuk integrasi data
-- **SPA (Single Page Application)** untuk login dan navigasi cepat
+---
 
-SIAKAD dirancang untuk memudahkan pengelolaan **data akademik dan operasional kampus**, termasuk KRS, presensi, perkuliahan, dan evaluasi nilai.
+## Teknologi yang Digunakan
+
+| Komponen      | Teknologi/Tools                        | Keterangan                                                                 |
+|---------------|---------------------------------------|---------------------------------------------------------------------------|
+| Backend       | Laravel 12                             | Framework PHP modern untuk pengembangan web yang cepat dan aman          |
+| Database      | MySQL                                  | Basis data relasional untuk menyimpan seluruh data akademik              |
+| Frontend      | TailwindCSS & HTML                      | Tampilan responsif dan modern                                            |
+| UI/UX Design  | Figma                                  | Desain antarmuka dan prototipe interaktif                                 |
+| Integrasi     | API REST                               | Untuk pertukaran data antara aplikasi dan layanan eksternal              |
+| SPA           | Laravel + JS                           | Single Page Application untuk login dan navigasi cepat                   |
+
+---
 
 ## Screenshot
 
@@ -36,33 +52,20 @@ SIAKAD dirancang untuk memudahkan pengelolaan **data akademik dan operasional ka
   <img src="https://github.com/HariisDermawan/Sistem-Informasi-Akademik/blob/main/public/img/dashboard.png" alt="Dashboard SIAKAD" width="800">
 </p>
 
+---
+
 ## Fitur Utama
 
-- **Dashboard Interaktif**  
-  Menampilkan statistik jumlah mahasiswa, dosen, mata kuliah, dan program studi secara real-time.
-  
-- **Mahasiswa & Dosen**  
-  CRUD data mahasiswa dan dosen lengkap dengan foto profil, NIM/NIDN, dan informasi akademik.
+| Fitur                        | Deskripsi                                                                                   |
+|-------------------------------|-------------------------------------------------------------------------------------------|
+| Dashboard Interaktif          | Statistik jumlah mahasiswa, dosen, mata kuliah, dan program studi secara real-time        |
+| Mahasiswa & Dosen             | CRUD data mahasiswa dan dosen, termasuk foto profil, NIM/NIDN, dan informasi akademik     |
+| Mata Kuliah                   | Pengelolaan data mata kuliah: kode, nama, SKS, semester, dan dosen pengampu               |
+| KRS (Kartu Rencana Studi)     | Pengisian KRS otomatis, validasi jadwal, dan tracking jumlah SKS                           |
+| Presensi Mahasiswa & Dosen    | Pencatatan kehadiran real-time, laporan harian, integrasi jadwal perkuliahan              |
+| Perkuliahan & Jadwal          | Manajemen jadwal kelas, ruangan, dosen, dan mata kuliah                                    |
+| Nilai & Evaluasi              | Input nilai harian, tugas, ujian, perhitungan IPK & IPS mahasiswa per semester            |
+| Semester & Program Studi      | Pengelolaan data semester dan program studi untuk mendukung proses akademik               |
+| Notifikasi & Toast            | Informasi real-time untuk login, pengisian KRS, presensi, dan update data akademik        |
 
-- **Mata Kuliah**  
-  Pengelolaan data mata kuliah, termasuk kode, nama, sks, semester, dan dosen pengampu.
-
-- **KRS (Kartu Rencana Studi)**  
-  Sistem pengisian KRS mahasiswa otomatis, validasi jadwal, dan tracking jumlah SKS.
-
-- **Presensi Mahasiswa & Dosen**  
-  Pencatatan kehadiran secara real-time, laporan harian, dan integrasi dengan jadwal perkuliahan.
-
-- **Perkuliahan & Jadwal**  
-  Manajemen jadwal kelas, ruangan, dosen pengajar, dan mata kuliah.
-
-- **Nilai & Evaluasi**  
-  Input nilai harian, tugas, dan ujian, serta perhitungan IPK dan IPS mahasiswa per semester.
-
-- **Semester & Program Studi**  
-  Pengelolaan data semester dan program studi untuk mendukung semua proses akademik.
-
-- **Notifikasi & Toast**  
-  Informasi realtime untuk login, pengisian KRS, presensi, dan update data akademik.
-  
-##
+---
