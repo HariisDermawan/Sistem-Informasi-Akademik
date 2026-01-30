@@ -304,221 +304,427 @@
                         </div>
                     </div>
                 </div>
-               
-                <!-- ====================== -->
-<!-- TABEL MATA KULIAH START -->
-<!-- ====================== -->
-<div class="bg-white rounded-xl shadow-md p-6 mb-6">
 
-    <!-- Header + Filter -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-        <h2 class="text-xl font-bold text-gray-800 mb-4 md:mb-0">
-            Daftar Mata Kuliah
-        </h2>
+                <div class="bg-white rounded-xl shadow-md p-6 mb-6">
 
-        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
+                    <!-- Header + Filter -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4 md:mb-0">
+                            Daftar Mata Kuliah
+                        </h2>
 
-            <!-- Search -->
-            <div class="relative w-full sm:w-64">
-                <input type="text" placeholder="Cari mata kuliah..."
-                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-            </div>
-
-            <!-- Filter Semester -->
-            <select
-                class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Semua Semester</option>
-                <option value="1">Semester 1</option>
-                <option value="2">Semester 2</option>
-                <option value="3">Semester 3</option>
-                <option value="4">Semester 4</option>
-                <option value="5">Semester 5</option>
-                <option value="6">Semester 6</option>
-                <option value="7">Semester 7</option>
-                <option value="8">Semester 8</option>
-            </select>
-
-            <!-- Filter Prodi -->
-            <select
-                class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Semua Prodi</option>
-                <option value="ti">Teknik Informatika</option>
-                <option value="si">Sistem Informasi</option>
-                <option value="te">Teknik Elektro</option>
-                <option value="mi">Manajemen Informatika</option>
-            </select>
-
-            
-
-            <button 
-    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center justify-center transition duration-300"
-    onclick="document.getElementById('modal-tambah-mk').classList.remove('hidden')">
-    <i class="fas fa-plus mr-2"></i> Tambah Mata Kuliah
-</button>
-        </div>
-    </div>
-
-   <!-- Table Matakuliah -->
-<div class="overflow-x-auto">
-    <table class="w-full">
-        <thead>
-            <tr class="bg-gray-50 border-b">
-                <th class="text-left py-3 px-4 font-medium text-gray-700">Kode MK</th>
-                <th class="text-left py-3 px-4 font-medium text-gray-700">Nama Mata Kuliah</th>
-                <th class="text-left py-3 px-4 font-medium text-gray-700">SKS</th>
-                <th class="text-left py-3 px-4 font-medium text-gray-700">Program Studi</th>
-                <th class="text-left py-3 px-4 font-medium text-gray-700">Dosen Pengampu</th>
-                <th class="text-left py-3 px-4 font-medium text-gray-700">Aksi</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @forelse($matakuliahs as $mk)
-            <tr class="border-b hover:bg-gray-50">
-                <td class="py-4 px-4 font-medium">{{ $mk->kode_mk }}</td>
-                <td class="py-4 px-4">
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                            <i class="fas fa-book text-blue-600"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-800">{{ $mk->nama_mk }}</p>
+                        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
+                            <div class="relative w-full sm:w-64">
+                                <input type="text" placeholder="Cari mata kuliah..."
+                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            </div>
+                            <select
+                                class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Semua Semester</option>
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                                <option value="4">Semester 4</option>
+                                <option value="5">Semester 5</option>
+                                <option value="6">Semester 6</option>
+                                <option value="7">Semester 7</option>
+                                <option value="8">Semester 8</option>
+                            </select>
+                            <select
+                                class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Semua Prodi</option>
+                                <option value="ti">Teknik Informatika</option>
+                                <option value="si">Sistem Informasi</option>
+                                <option value="te">Teknik Elektro</option>
+                                <option value="mi">Manajemen Informatika</option>
+                            </select>
+                            <button
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center justify-center transition duration-300"
+                                onclick="document.getElementById('modal-tambah-mk').classList.remove('hidden')">
+                                <i class="fas fa-plus mr-2"></i> Tambah Mata Kuliah
+                            </button>
                         </div>
                     </div>
-                </td>
-                <td class="py-4 px-4">
-                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">{{ $mk->sks }}</span>
-                </td>
-               
-                <td class="py-4 px-4">{{ $mk->prodi->nama_prodi ?? '-' }}</td>
-<td class="py-4 px-4">
-    {{ $mk->dosen->nama_dosen ?? '-' }}
-</td>
-                <td class="py-4 px-4">
-                    <div class="flex space-x-2">
-                        <!-- View -->
-                        <a href="" class="text-blue-600 hover:text-blue-800" title="Lihat Detail">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <!-- Edit -->
-                        <a href="" class="text-green-600 hover:text-green-800" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <!-- Delete -->
-                        <form action="" method="POST" onsubmit="return confirm('Yakin hapus matakuliah ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:text-red-800" title="Hapus">
-                                <i class="fas fa-trash"></i>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-50 border-b">
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Kode MK</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Nama Mata Kuliah</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">SKS</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Program Studi</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Dosen Pengampu</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Aksi</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @forelse($matakuliahs as $mk)
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="py-4 px-4 font-medium">{{ $mk->kode_mk }}</td>
+                                        <td class="py-4 px-4">
+                                            <div class="flex items-center">
+                                                <div
+                                                    class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                                    <i class="fas fa-book text-blue-600"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="font-medium text-gray-800">{{ $mk->nama_mk }}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            <span
+                                                class="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">{{ $mk->sks }}</span>
+                                        </td>
+
+                                        <td class="py-4 px-4">{{ $mk->prodi->nama_prodi ?? '-' }}</td>
+                                        <td class="py-4 px-4">
+                                            {{ $mk->dosen->nama_dosen ?? '-' }}
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            <div class="flex space-x-2">
+                                                <a href="#"
+                                                    class="text-blue-600 hover:text-blue-800 show-mk-btn"
+                                                    title="Lihat Detail" data-mk='@json($mk)'>
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                                <a href="javascript:void(0);"
+                                                    class="text-green-600 hover:text-green-800" title="Edit"
+                                                    onclick="openEditModal({{ $mk->id }}, '{{ $mk->prodi_id }}', '{{ $mk->dosen_id }}', '{{ $mk->kode_mk }}', '{{ $mk->nama_mk }}', '{{ $mk->sks }}')">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+                                                <form action="" method="POST"
+                                                    onsubmit="return confirm('Yakin hapus matakuliah ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-600 hover:text-red-800"
+                                                        title="Hapus">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center py-4">Belum ada data matakuliah</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-between items-center mt-6">
+                        <div class="text-gray-500 text-sm">
+                            Menampilkan 3 dari 78 mata kuliah
+                        </div>
+
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                                <i class="fas fa-chevron-left"></i>
                             </button>
+                            <button class="px-3 py-1 bg-blue-600 text-white rounded-lg">1</button>
+                            <button
+                                class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
+                            <button
+                                class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">3</button>
+                            <button
+                                class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">...</button>
+                            <button
+                                class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">10</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div id="modal-edit-mk"
+                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                    <div class="bg-white rounded-xl shadow-lg w-full max-w-lg p-6 relative">
+                        <!-- Close Button -->
+                        <button type="button" class="absolute top-3 right-3 text-white hover:text-gray-200"
+                            onclick="document.getElementById('modal-edit-mk').classList.add('hidden')">
+                            <i class="fas fa-times"></i>
+                        </button>
+
+                        <h2 class="text-xl font-bold text-white mb-4">Edit Mata Kuliah</h2>
+
+                        <form id="form-edit-mk" method="POST" action="{{ route('matkul.update',  $mk->id) }}">
+                            @csrf
+                            @method('PUT')
+
+                            <input type="hidden" name="id" id="edit-id">
+
+                            <!-- Program Studi -->
+                            <div class="mb-4">
+                                <label class="text-white">Program Studi</label>
+                                <select name="prodi_id" id="edit-prodi" required
+                                    class="w-full border px-3 py-2 rounded">
+                                    <option value="">-- Pilih Prodi --</option>
+                                    @foreach (\App\Models\Prodi::all() as $prodi)
+                                        <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Dosen Pengampu -->
+                            <div class="mb-4">
+                                <label class="text-white">Dosen Pengampu</label>
+                                <select name="dosen_id" id="edit-dosen" class="w-full border px-3 py-2 rounded">
+                                    <option value="">-- Pilih Dosen --</option>
+                                    @foreach (\App\Models\Dosen::all() as $dosen)
+                                        <option value="{{ $dosen->id }}">{{ $dosen->nama_dosen }}
+                                            ({{ $dosen->nidn }})</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Kode Mata Kuliah -->
+                            <div class="mb-4">
+                                <label class="text-white">Kode Mata Kuliah</label>
+                                <input type="text" name="kode_mk" id="edit-kode_mk" required
+                                    class="w-full border px-3 py-2 rounded">
+                            </div>
+
+                            <!-- Nama Mata Kuliah -->
+                            <div class="mb-4">
+                                <label class="text-white">Nama Mata Kuliah</label>
+                                <input type="text" name="nama_mk" id="edit-nama_mk" required
+                                    class="w-full border px-3 py-2 rounded">
+                            </div>
+
+                            <!-- SKS -->
+                            <div class="mb-4">
+                                <label class="text-white">SKS</label>
+                                <input type="number" name="sks" id="edit-sks" required min="1"
+                                    max="10" class="w-full border px-3 py-2 rounded">
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="flex justify-end space-x-2">
+                                <button type="button" class="px-4 py-2 bg-gray-300 rounded"
+                                    onclick="document.getElementById('modal-edit-mk').classList.add('hidden')">Batal</button>
+                                <button type="submit"
+                                    class="px-4 py-2 bg-blue-600 text-white rounded">Simpan</button>
+                            </div>
                         </form>
                     </div>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="7" class="text-center py-4">Belum ada data matakuliah</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
-
-    <!-- Pagination -->
-    <div class="flex justify-between items-center mt-6">
-        <div class="text-gray-500 text-sm">
-            Menampilkan 3 dari 78 mata kuliah
-        </div>
-
-        <div class="flex space-x-2">
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="px-3 py-1 bg-blue-600 text-white rounded-lg">1</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">3</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">...</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">10</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-    </div>
-
-</div>
+                </div>
 
 
-<!-- Modal Tambah Matakuliah -->
-<div id="modal-tambah-mk" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white rounded-xl shadow-lg w-full max-w-lg p-6 relative">
-        <!-- Close button -->
-        <button class="absolute top-3 right-3 text-gray-500 hover:text-gray-700" onclick="document.getElementById('modal-tambah-mk').classList.add('hidden')">
-            <i class="fas fa-times"></i>
-        </button>
+                <!-- Modal Edit Matakuliah -->
+                <div id="modal-edit-mk"
+                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                    <div class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6 relative">
+                        <!-- Close Button -->
+                        <button class="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+                            onclick="document.getElementById('modal-edit-mk').classList.add('hidden')">
+                            <i class="fas fa-times text-lg"></i>
+                        </button>
 
-        <h2 class="text-xl font-bold text-gray-800 mb-4">Tambah Mata Kuliah</h2>
+                        <!-- Header -->
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Edit Mata Kuliah</h2>
 
-        <form action="{{ route('matkul.store') }}" method="POST">
-            @csrf
+                        <!-- Form -->
+                        <form id="form-edit-mk" method="POST">
+                            @csrf
+                            @method('PUT')
 
-            <!-- Prodi -->
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Program Studi</label>
-                <select name="prodi_id" required
-                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">-- Pilih Prodi --</option>
-                    @foreach(\App\Models\Prodi::all() as $prodi)
-                        <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
-                    @endforeach
-                </select>
-            </div>
+                            <!-- Prodi -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">Program Studi</label>
+                                <select name="prodi_id" id="edit-prodi" required
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">-- Pilih Prodi --</option>
+                                    @foreach (\App\Models\Prodi::all() as $prodi)
+                                        <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-            <!-- Dosen -->
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Dosen Pengampu</label>
-                <select name="dosen_id" required
-                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">-- Pilih Dosen --</option>
-                    @foreach(\App\Models\Dosen::all() as $dosen)
-                        <option value="{{ $dosen->id }}">{{ $dosen->nama_dosen }} ({{ $dosen->nidn }})</option>
-                    @endforeach
-                </select>
-            </div>
+                            <!-- Dosen -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">Dosen Pengampu</label>
+                                <select name="dosen_id" id="edit-dosen" required
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">-- Pilih Dosen --</option>
+                                    @foreach (\App\Models\Dosen::all() as $dosen)
+                                        <option value="{{ $dosen->id }}">{{ $dosen->nama_dosen }}
+                                            ({{ $dosen->nidn }})</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-            <!-- Kode Mata Kuliah -->
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Kode Mata Kuliah</label>
-                <input type="text" name="kode_mk" required
-                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="TI101">
-            </div>
+                            <!-- Kode Mata Kuliah -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">Kode Mata Kuliah</label>
+                                <input type="text" name="kode_mk" id="edit-kode_mk" required
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="TI101">
+                            </div>
 
-            <!-- Nama Mata Kuliah -->
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Nama Mata Kuliah</label>
-                <input type="text" name="nama_mk" required
-                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Algoritma & Pemrograman">
-            </div>
+                            <!-- Nama Mata Kuliah -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">Nama Mata Kuliah</label>
+                                <input type="text" name="nama_mk" id="edit-nama_mk" required
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Algoritma & Pemrograman">
+                            </div>
 
-            <!-- SKS -->
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">SKS</label>
-                <input type="number" name="sks" required min="1" max="10"
-                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="3">
-            </div>
+                            <!-- SKS -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">SKS</label>
+                                <input type="number" name="sks" id="edit-sks" required min="1"
+                                    max="10"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="3">
+                            </div>
 
-            <!-- Submit -->
-            <div class="flex justify-end space-x-2">
-                <button type="button" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
-                    onclick="document.getElementById('modal-tambah-mk').classList.add('hidden')">Batal</button>
-                <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Simpan</button>
-            </div>
-        </form>
-    </div>
-</div>
+                            <!-- Footer -->
+                            <div class="flex justify-end space-x-2">
+                                <button type="button" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+                                    onclick="document.getElementById('modal-edit-mk').classList.add('hidden')">Batal</button>
+                                <button type="submit"
+                                    class="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <!-- Modal Show Matakuliah -->
+                <div id="modal-show-mk"
+                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                    <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 relative">
+                        <!-- Close Button -->
+                        <button class="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+                            onclick="document.getElementById('modal-show-mk').classList.add('hidden')">
+                            <i class="fas fa-times text-lg"></i>
+                        </button>
+
+                        <!-- Header -->
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Detail Mata Kuliah</h2>
+
+                        <!-- Content -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-700">Kode Mata Kuliah:</span>
+                                <span id="show-kode_mk" class="text-gray-800"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-700">Nama Mata Kuliah:</span>
+                                <span id="show-nama_mk" class="text-gray-800"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-700">SKS:</span>
+                                <span id="show-sks" class="text-gray-800"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-700">Program Studi:</span>
+                                <span id="show-prodi" class="text-gray-800"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium text-gray-700">Dosen Pengampu:</span>
+                                <span id="show-dosen" class="text-gray-800"></span>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="flex justify-end mt-6">
+                            <button type="button"
+                                class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg font-medium"
+                                onclick="document.getElementById('modal-show-mk').classList.add('hidden')">
+                                Tutup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal Tambah Matakuliah -->
+                <div id="modal-tambah-mk"
+                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                    <div class="bg-white rounded-xl shadow-lg w-full max-w-lg p-6 relative">
+                        <!-- Close button -->
+                        <button class="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+                            onclick="document.getElementById('modal-tambah-mk').classList.add('hidden')">
+                            <i class="fas fa-times"></i>
+                        </button>
+
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Tambah Mata Kuliah</h2>
+
+                        <form action="{{ route('matkul.store') }}" method="POST">
+                            @csrf
+
+                            <!-- Prodi -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">Program Studi</label>
+                                <select name="prodi_id" required
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">-- Pilih Prodi --</option>
+                                    @foreach (\App\Models\Prodi::all() as $prodi)
+                                        <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Dosen -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">Dosen Pengampu</label>
+                                <select name="dosen_id" required
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">-- Pilih Dosen --</option>
+                                    @foreach (\App\Models\Dosen::all() as $dosen)
+                                        <option value="{{ $dosen->id }}">{{ $dosen->nama_dosen }}
+                                            ({{ $dosen->nidn }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Kode Mata Kuliah -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">Kode Mata Kuliah</label>
+                                <input type="text" name="kode_mk" required
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="TI101">
+                            </div>
+
+                            <!-- Nama Mata Kuliah -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">Nama Mata Kuliah</label>
+                                <input type="text" name="nama_mk" required
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Algoritma & Pemrograman">
+                            </div>
+
+                            <!-- SKS -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">SKS</label>
+                                <input type="number" name="sks" required min="1" max="10"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="3">
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="flex justify-end space-x-2">
+                                <button type="button" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+                                    onclick="document.getElementById('modal-tambah-mk').classList.add('hidden')">Batal</button>
+                                <button type="submit"
+                                    class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </main>
 
             <!-- Footer -->
@@ -531,6 +737,26 @@
             </footer>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.show-mk-btn');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const mk = JSON.parse(this.dataset.mk);
+
+                    document.getElementById('show-kode_mk').textContent = mk.kode_mk;
+                    document.getElementById('show-nama_mk').textContent = mk.nama_mk;
+                    document.getElementById('show-sks').textContent = mk.sks;
+                    document.getElementById('show-prodi').textContent = mk.prodi?.nama_prodi || '-';
+                    document.getElementById('show-dosen').textContent = mk.dosen?.nama_dosen || '-';
+
+                    document.getElementById('modal-show-mk').classList.remove('hidden');
+                });
+            });
+        });
+    </script>
 
 
     <script>
@@ -572,6 +798,25 @@
             logoutModal.classList.add('hidden');
         });
     </script>
+
+    <script>
+        function openEditModal(id, prodi_id, dosen_id, kode_mk, nama_mk, sks) {
+            // Tampilkan modal
+            document.getElementById('modal-edit-mk').classList.remove('hidden');
+
+            // Isi form dengan data
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-prodi').value = prodi_id;
+            document.getElementById('edit-dosen').value = dosen_id;
+            document.getElementById('edit-kode_mk').value = kode_mk;
+            document.getElementById('edit-nama_mk').value = nama_mk;
+            document.getElementById('edit-sks').value = sks;
+
+            // Set form action ke route update
+            document.getElementById('form-edit-mk').action = '/matakuliahs/' + id;
+        }
+    </script>
+
 </body>
 
 </html>

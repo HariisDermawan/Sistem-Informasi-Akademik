@@ -428,25 +428,14 @@
                                                     data-id="{{ $mhs->id }}">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
-
-                                                <button class="text-green-600 hover:text-green-800 btn-edit"
-                                                    title="Edit" data-id="{{ $mhs->id }}"
-                                                    data-nama="{{ $mhs->nama_mahasiswa }}"
-                                                    data-nim="{{ $mhs->nim }}" data-prodi="{{ $mhs->prodi_id }}"
-                                                    data-angkatan="{{ $mhs->angkatan }}">
+                                                <button class="text-green-600 hover:text-green-800" title="Edit"
+                                                    data-id="{{ $mhs->id }}">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
-
-                                                <form action="{{ route('mahasiswas.destroy', $mhs->id) }}"
-                                                    method="POST" class="inline-block"
-                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $mhs->nama_mahasiswa }}?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-800">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-
+                                                <button class="text-red-600 hover:text-red-800" title="Hapus"
+                                                    data-id="{{ $mhs->id }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -486,126 +475,6 @@
                     </div>
                 </div>
 
-
-                <!-- Modal Edit Mahasiswa - Biru -->
-                <div id="editMahasiswaModal"
-                    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
-                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
-                        <!-- Tombol Tutup -->
-                        <button onclick="document.getElementById('editMahasiswaModal').classList.add('hidden')"
-                            class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
-
-                        <h3 class="text-xl font-semibold text-gray-800 mb-5 text-center">Edit Mahasiswa</h3>
-
-                        <form method="POST" id="editMahasiswaForm">
-                            @csrf
-                            @method('PUT')
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-gray-700 mb-1 font-medium">Nama Mahasiswa</label>
-                                    <input type="text" name="nama_mahasiswa" id="editNama"
-                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        required>
-                                </div>
-                                <div>
-                                    <label class="block text-gray-700 mb-1 font-medium">NIM</label>
-                                    <input type="text" name="nim" id="editNim"
-                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        required>
-                                </div>
-                                <div>
-                                    <label class="block text-gray-700 mb-1 font-medium">Program Studi</label>
-                                    <select name="prodi_id" id="editProdi"
-                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        required>
-                                        <option value="">Pilih Prodi</option>
-                                        @foreach ($prodis as $prodi)
-                                            <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-gray-700 mb-1 font-medium">Angkatan</label>
-                                    <input type="number" name="angkatan" id="editAngkatan"
-                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        required>
-                                </div>
-                            </div>
-
-                            <div class="flex justify-end space-x-3 mt-6">
-                                <button type="button"
-                                    onclick="document.getElementById('editMahasiswaModal').classList.add('hidden')"
-                                    class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-medium">Batal</button>
-                                <button type="submit"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">Simpan</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-
-                <!-- Modal View Mahasiswa - Biru -->
-                <div id="viewMahasiswaModal"
-                    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
-                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
-                        <!-- Tombol Tutup -->
-                        <button onclick="document.getElementById('viewMahasiswaModal').classList.add('hidden')"
-                            class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
-
-                        <!-- Header Biru -->
-                        <h3 class="text-xl font-semibold text-black  p-3 rounded-lg text-center mb-5">
-                            Detail Mahasiswa
-                        </h3>
-
-                        <!-- Form View -->
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-gray-700 font-medium">Nama Mahasiswa</label>
-                                <input type="text" id="viewNama"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    readonly>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-medium">NIM</label>
-                                <input type="text" id="viewNIM"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    readonly>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-medium">Program Studi</label>
-                                <input type="text" id="viewProdi"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    readonly>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-medium">Angkatan</label>
-                                <input type="text" id="viewAngkatan"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    readonly>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-medium">Status</label>
-                                <input type="text" id="viewStatus"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    readonly>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-medium">IPK</label>
-                                <input type="text" id="viewIPK"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    readonly>
-                            </div>
-                        </div>
-
-                        <!-- Tombol Tutup Biru -->
-                        <div class="flex justify-end mt-6">
-                            <button onclick="document.getElementById('viewMahasiswaModal').classList.add('hidden')"
-                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">Tutup</button>
-                        </div>
-                    </div>
-                </div>
-
-
                 <!-- Modal Tambah Mahasiswa - Biru -->
                 <div id="tambahMahasiswaModal"
                     class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
@@ -616,25 +485,27 @@
 
                         <h3 class="text-xl font-semibold text-gray-800 mb-5 text-center">Tambah Mahasiswa</h3>
 
-                        <form method="POST" action="{{ route('mahasiswas.store') }}">
+                        <!-- Form -->
+                        <form method="POST" action="{{ route('mahasiswa.store') }}">
                             @csrf
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-gray-700 mb-1 font-medium">Nama Mahasiswa</label>
-                                    <input type="text" name="nama_mahasiswa" value="{{ old('nama_mahasiswa') }}"
+                                    <input type="text" name="nama_mahasiswa"
                                         class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        required>
+                                        required value="{{ old('nama_mahasiswa') }}">
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1 font-medium">NIM</label>
-                                    <input type="text" name="nim" value="{{ old('nim') }}"
+                                    <input type="text" name="nim"
                                         class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        required>
+                                        required value="{{ old('nim') }}">
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1 font-medium">Program Studi</label>
-                                    <select name="prodi_id" required
-                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <select name="prodi_id"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required>
                                         <option value="">Pilih Prodi</option>
                                         @foreach ($prodis as $prodi)
                                             <option value="{{ $prodi->id }}"
@@ -646,9 +517,9 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1 font-medium">Angkatan</label>
-                                    <input type="number" name="angkatan" value="{{ old('angkatan') }}"
+                                    <input type="number" name="angkatan"
                                         class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        required>
+                                        required value="{{ old('angkatan') }}">
                                 </div>
                             </div>
 
@@ -660,7 +531,6 @@
                                     class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">Simpan</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
 
@@ -681,91 +551,6 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('button[title="Lihat Detail"]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const row = btn.closest('tr');
-
-                    // Ambil data dari row
-                    const nim = row.children[0].innerText.trim();
-                    const nama = row.children[1].querySelector('span').innerText.trim();
-                    const prodi = row.children[2].innerText.trim();
-                    const angkatan = row.children[3].innerText.trim();
-                    const ipk = row.children[4].innerText.trim();
-                    const status = row.children[5].innerText.trim();
-
-                    // Isi modal
-                    document.getElementById('viewNama').value = nama;
-                    document.getElementById('viewNIM').value = nim;
-                    document.getElementById('viewProdi').value = prodi;
-                    document.getElementById('viewAngkatan').value = angkatan;
-                    document.getElementById('viewIPK').value = ipk;
-                    document.getElementById('viewStatus').value = status;
-
-                    // Tampilkan modal
-                    document.getElementById('viewMahasiswaModal').classList.remove('hidden');
-                });
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('button[title="Edit"]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const row = btn.closest('tr');
-
-                    const id = btn.dataset.id;
-                    const nim = row.children[0].innerText.trim();
-                    const nama = row.children[1].querySelector('span').innerText.trim();
-                    const prodi = row.children[2].innerText.trim();
-                    const angkatan = row.children[3].innerText.trim();
-
-                    document.getElementById('editMahasiswaId').value = id;
-                    document.getElementById('editNIM').value = nim;
-                    document.getElementById('editNama').value = nama;
-                    document.getElementById('editAngkatan').value = angkatan;
-
-                    // Set prodi select
-                    const prodiSelect = document.getElementById('editProdi');
-                    Array.from(prodiSelect.options).forEach(option => {
-                        option.selected = option.text === prodi;
-                    });
-
-                    document.getElementById('editMahasiswaModal').classList.remove('hidden');
-                });
-            });
-
-            // Optional: submit form via Ajax
-            const editForm = document.getElementById('editMahasiswaForm');
-            editForm.addEventListener('submit', function(e) {
-                // e.preventDefault();
-                // Bisa ditambahkan ajax jika mau tanpa reload halaman
-            });
-        });
-
-        // Edit Mahasiswa
-        const editButtons = document.querySelectorAll('.btn-edit');
-        editButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = btn.dataset.id;
-                const nama = btn.dataset.nama;
-                const nim = btn.dataset.nim;
-                const prodi = btn.dataset.prodi;
-                const angkatan = btn.dataset.angkatan;
-
-                document.getElementById('editNama').value = nama;
-                document.getElementById('editNim').value = nim;
-                document.getElementById('editProdi').value = prodi;
-                document.getElementById('editAngkatan').value = angkatan;
-
-                const form = document.getElementById('editMahasiswaForm');
-                form.action = `/mahasiswas/${id}`; // pastikan sesuai resource route
-
-                document.getElementById('editMahasiswaModal').classList.remove('hidden');
-            });
-        });
-
-
-
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
@@ -805,12 +590,12 @@
         });
     </script>
     @if ($errors->any())
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                document.getElementById('tambahMahasiswaModal').classList.remove('hidden');
-            });
-        </script>
-    @endif
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('tambahMahasiswaModal').classList.remove('hidden');
+    });
+</script>
+@endif
 
 </body>
 

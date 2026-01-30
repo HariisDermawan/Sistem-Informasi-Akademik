@@ -86,31 +86,25 @@ class MatakuliahController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-    {
-        $mk = Matakuliah::find($id);
-
-        if (!$mk) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Matakuliah tidak ditemukan!'
-            ], 404);
-        }
-
-        $request->validate([
-            'prodi_id' => 'sometimes|exists:prodis,id',
-            'kode_mk' => ['sometimes', 'string', Rule::unique('matakuliahs', 'kode_mk')->ignore($mk->id)],
-            'nama_mk' => 'sometimes|string|max:255',
-            'sks' => 'sometimes|integer|min:1|max:10'
-        ]);
-
-        $mk->update($request->only(['prodi_id', 'kode_mk', 'nama_mk', 'sks']));
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Matakuliah berhasil diperbarui',
-            'data' => $mk->load('prodi:id,nama_prodi')
-        ], 200);
+{
+    $mk = Matakuliah::find($id);
+    if (!$mk) {
+        return redirect()->route('matakuliahs.index')->with('error', 'Matakuliah tidak ditemukan!');
     }
+
+    $request->validate([
+        'prodi_id' => 'sometimes|exists:prodis,id',
+        'dosen_id' => 'nullable|exists:dosens,id',
+        'kode_mk' => ['sometimes', 'string', Rule::unique('matakuliahs', 'kode_mk')->ignore($mk->id)],
+        'nama_mk' => 'sometimes|string|max:255',
+        'sks' => 'sometimes|integer|min:1|max:10'
+    ]);
+
+    $mk->update($request->only(['prodi_id', 'dosen_id', 'kode_mk', 'nama_mk', 'sks']));
+
+    return redirect()->route('matakuliahs.index')->with('success', 'Matakuliah berhasil diperbarui!');
+}
+
 
     /**
      * Remove the specified resource from storage.
