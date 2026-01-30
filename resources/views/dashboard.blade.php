@@ -55,6 +55,14 @@
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
+        .overlay {
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
@@ -80,8 +88,8 @@
                         <i class="fas fa-user-tie text-blue-600 text-xl"></i>
                     </div>
                     <div class="ml-4">
-                        <h3 class="font-semibold text-gray-800">Haris Darmawan</h3>
-                        <p class="text-sm text-gray-500">Admin Sistem</p>
+                        <h3 class="font-semibold text-gray-800">{{ Auth::user()->name }}</h3>
+                        <p class="text-sm text-gray-500">{{ Auth::user()->name }}</p>
                     </div>
                 </div>
             </div>
@@ -172,7 +180,8 @@
                 </ul>
             </div>
         </div>
-        <div class="flex-1 flex flex-col overflow-hidden">
+
+        <div class="flex-1 flex flex-col overflow-auto">
             <header class="flex items-center justify-between px-6 py-4 bg-white border-b shadow-sm">
                 <button id="mobileMenuBtn" class="md:hidden text-gray-600 focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
@@ -182,33 +191,28 @@
                         class="w-12 h-12 object-contain">
                     <h1 class="text-2xl font-bold text-gray-800">UNIVERSITAS PAMULANG</h1>
                 </div>
-
-                <!-- Header Actions -->
                 <div class="flex items-center space-x-4">
-                    <!-- Current Semester -->
                     <div class="hidden md:block px-4 py-2 bg-blue-50 text-blue-700 rounded-lg">
-                        <span class="font-semibold">Semester:</span> Ganjil 2023/2024
+                        <span class="font-semibold">Semester:</span>
+                        <span>{{ $semesterAktif->nama_semester ?? '-' }}</span>
                     </div>
 
-                    <!-- User Profile Dropdown -->
                     <div class="relative">
                         <button id="profileDropdownBtn" class="flex items-center space-x-2 focus:outline-none">
                             <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
                                 <i class="fas fa-user-tie text-blue-600"></i>
                             </div>
                             <div class="hidden md:block text-left">
-                                <p class="text-sm font-medium text-gray-800">Haris Darmawan</p>
+                                <p class="text-sm font-medium text-gray-800">{{ Auth::user()->name }}</p>
                                 <p class="text-xs text-gray-500">Admin</p>
                             </div>
                             <i class="fas fa-chevron-down text-gray-500 text-sm hidden md:block"></i>
                         </button>
-
-                        <!-- Dropdown Menu -->
                         <div id="profileDropdown"
                             class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border py-1 z-10 hidden">
                             <div class="px-4 py-3 border-b">
-                                <p class="text-sm font-medium text-gray-800">Haris Darmawan</p>
-                                <p class="text-xs text-gray-500">admin@universitas.ac.id</p>
+                                <p class="text-sm font-medium text-gray-800">{{ Auth::user()->name }}</p>
+                                <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
                             </div>
                             <a href="#"
                                 class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -240,144 +244,136 @@
                     </div>
                 </div>
             </header>
-            <!-- Stats Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-gray-500 text-sm">Total Mahasiswa</p>
-                            <h3 class="text-2xl font-bold text-gray-800 mt-1">1,245</h3>
+            <main class="flex-1 overflow-y-auto p-4 md:p-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-gray-500 text-sm">Total Mahasiswa</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">1,245</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                                <i class="fas fa-user-graduate text-blue-600 text-xl"></i>
+                            </div>
                         </div>
-                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-                            <i class="fas fa-user-graduate text-blue-600 text-xl"></i>
+                        <div class="mt-4">
+                            <span class="text-green-500 text-sm font-medium">
+                                <i class="fas fa-arrow-up"></i> 5.2% dari semester lalu
+                            </span>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <span class="text-green-500 text-sm font-medium">
-                            <i class="fas fa-arrow-up"></i> 5.2% dari semester lalu
-                        </span>
+
+                    <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-gray-500 text-sm">Total Dosen</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">42</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                                <i class="fas fa-chalkboard-teacher text-green-600 text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-green-500 text-sm font-medium">
+                                <i class="fas fa-arrow-up"></i> 2.4% dari semester lalu
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-purple-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-gray-500 text-sm">Mata Kuliah</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">78</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                                <i class="fas fa-book text-purple-600 text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-green-500 text-sm font-medium">
+                                <i class="fas fa-arrow-up"></i> 3.1% dari semester lalu
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-yellow-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-gray-500 text-sm">Program Studi</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">12</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center">
+                                <i class="fas fa-university text-yellow-600 text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-gray-500 text-sm font-medium">Tidak berubah</span>
+                        </div>
                     </div>
                 </div>
-
-                <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-gray-500 text-sm">Total Dosen</p>
-                            <h3 class="text-2xl font-bold text-gray-800 mt-1">42</h3>
-                        </div>
-                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                            <i class="fas fa-chalkboard-teacher text-green-600 text-xl"></i>
-                        </div>
+                <div id="semesterAlert"
+                    class="bg-green-100 rounded-full text-green-800 p-4 mb-4 flex justify-between items-center pr-6">
+                    <div>
+                        • Anda Berada di Semester 8, Jenjang Pendidikan S1 Maksimal Semester 14
                     </div>
-                    <div class="mt-4">
-                        <span class="text-green-500 text-sm font-medium">
-                            <i class="fas fa-arrow-up"></i> 2.4% dari semester lalu
-                        </span>
+                    <button onclick="document.getElementById('semesterAlert').remove()"
+                        class="text-green-800 hover:text-green-900 font-bold text-lg ml-2">
+                        &times;
+                    </button>
+                </div>
+                <div class="bg-white rounded-xl shadow p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">IPK & IPS per Semester</h3>
+                    <canvas id="ipkIpsChart" class="w-full" style="max-height:300px;"></canvas>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-xl shadow p-6 border border-gray-300">
+                        <h4 class="text-lg font-bold mb-2 text-center">VISI</h4>
+                        <p class="mb-4 text-center">
+                            Menjadi universitas peringkat 40 besar pada tingkat nasional yang dilandasi oleh nilai
+                            humanis dan religius pada tahun 2025
+                        </p>
+                        <hr>
+                        <h4 class="text-lg font-bold mb-2 text-center">MISI</h4>
+                        <ol class="list-decimal ml-5 space-y-1">
+                            <li>Menyelenggarakan pendidikan akademik, vokasi, dan profesi yang profesional berbasis
+                                humanis dan religius</li>
+                            <li>Mengembangkan penelitian dan inovasi yang relevan dengan kebutuhan masyarakat</li>
+                            <li>Meningkatkan layanan pengabdian kepada masyarakat berbasis IPTEK</li>
+                        </ol>
+                    </div>
+                    <div class="bg-white rounded-xl shadow p-6 border border-gray-300">
+                        <h4 class="text-lg font-bold mb-3">INFORMASI DOKUMEN</h4>
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 border-b">
+                                    <th class="text-left py-2 px-3">Dokumen</th>
+                                    <th class="text-left py-2 px-3">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="py-2 px-3">PANDUAN PENULISAN TESIS T.INFORMATIKA S2</td>
+                                    <td class="py-2 px-3">
+                                        <button class="bg-green-500 text-white px-2 py-1 rounded">
+                                            <i class="fas fa-download"></i> Unduh
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-2 px-3">INFORMASI DAN KETENTUAN UMUM MAHASISWA UNPAM TA 2019/2020
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        <button class="bg-green-500 text-white px-2 py-1 rounded">
+                                            <i class="fas fa-download"></i> Unduh
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-                <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-purple-500">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-gray-500 text-sm">Mata Kuliah</p>
-                            <h3 class="text-2xl font-bold text-gray-800 mt-1">78</h3>
-                        </div>
-                        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-                            <i class="fas fa-book text-purple-600 text-xl"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <span class="text-green-500 text-sm font-medium">
-                            <i class="fas fa-arrow-up"></i> 3.1% dari semester lalu
-                        </span>
-                    </div>
-                </div>
-
-                <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-yellow-500">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-gray-500 text-sm">Program Studi</p>
-                            <h3 class="text-2xl font-bold text-gray-800 mt-1">12</h3>
-                        </div>
-                        <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center">
-                            <i class="fas fa-university text-yellow-600 text-xl"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <span class="text-gray-500 text-sm font-medium">Tidak berubah</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Alert Semester -->
-            <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
-                • Anda Berada di Semester 8, Jenjang Pendidikan S1 Maksimal Semester 14
-            </div>
-
-            <!-- Grafik IPK & IPS -->
-            <div class="bg-white rounded-xl shadow p-6 mb-6">
-                <h3 class="text-lg font-semibold text-gray-800 mb-3">IPK & IPS per Semester</h3>
-                <canvas id="ipkIpsChart" class="w-full" style="max-height:300px;"></canvas>
-            </div>
-
-            <!-- Visi-Misi & Informasi Dokumen -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-                <!-- Visi-Misi Box -->
-                <div class="bg-white rounded-xl shadow p-6 border border-gray-300">
-                    <!-- VISI -->
-                    <h4 class="text-lg font-bold mb-2 text-center">VISI</h4>
-                    <p class="mb-4 text-center">
-                        Menjadi universitas peringkat 40 besar pada tingkat nasional yang dilandasi oleh nilai
-                        humanis dan religius pada tahun 2025
-                    </p>
-                    <hr>
-                    <!-- MISI -->
-                    <h4 class="text-lg font-bold mb-2 text-center">MISI</h4>
-                    <ol class="list-decimal ml-5 space-y-1">
-                        <li>Menyelenggarakan pendidikan akademik, vokasi, dan profesi yang profesional berbasis
-                            humanis dan religius</li>
-                        <li>Mengembangkan penelitian dan inovasi yang relevan dengan kebutuhan masyarakat</li>
-                        <li>Meningkatkan layanan pengabdian kepada masyarakat berbasis IPTEK</li>
-                    </ol>
-                </div>
-
-                <!-- Informasi & Unduh Table -->
-                <div class="bg-white rounded-xl shadow p-6 border border-gray-300">
-                    <h4 class="text-lg font-bold mb-3">INFORMASI DOKUMEN</h4>
-                    <table class="w-full border-collapse">
-                        <thead>
-                            <tr class="bg-gray-50 border-b">
-                                <th class="text-left py-2 px-3">Dokumen</th>
-                                <th class="text-left py-2 px-3">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b">
-                                <td class="py-2 px-3">PANDUAN PENULISAN TESIS T.INFORMATIKA S2</td>
-                                <td class="py-2 px-3">
-                                    <button class="bg-green-500 text-white px-2 py-1 rounded">
-                                        <i class="fas fa-download"></i> Unduh
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="py-2 px-3">INFORMASI DAN KETENTUAN UMUM MAHASISWA UNPAM TA 2019/2020
-                                </td>
-                                <td class="py-2 px-3">
-                                    <button class="bg-green-500 text-white px-2 py-1 rounded">
-                                        <i class="fas fa-download"></i> Unduh
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
             </main>
-
-            <!-- Footer -->
             <footer class="py-4 px-6 border-t bg-white">
                 <div class="flex flex-col md:flex-row justify-center items-center">
                     <div class="text-gray-500 text-sm mb-2 md:mb-0">
@@ -387,7 +383,6 @@
             </footer>
         </div>
     </div>
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script>
@@ -396,7 +391,6 @@
             error: "{{ session('error') ?? '' }}"
         };
     </script>
-
 </body>
 
 </html>

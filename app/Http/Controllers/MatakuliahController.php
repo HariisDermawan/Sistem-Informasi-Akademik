@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prodi;
 use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -14,7 +15,7 @@ class MatakuliahController extends Controller
      */
     public function index()
     {
-        $matakuliahs = Matakuliah::with(['prodi:id,nama_prodi'])->get();
+        $matakuliahs = Matakuliah::with(['prodi', 'dosen'])->get();
         return view('matakuliah.index', compact('matakuliahs'));
     }
 
@@ -33,17 +34,25 @@ class MatakuliahController extends Controller
     {
         $request->validate([
             'prodi_id' => 'required|exists:prodis,id',
-            'kode_mk'  =>  'required|string|unique:matakuliahs,kode_mk',
+            'dosen_id' => 'nullable|exists:dosens,id',
+            'kode_mk'  => 'required|string|unique:matakuliahs,kode_mk',
             'nama_mk'  => 'required|string|max:255',
             'sks'      => 'required|integer|min:1|max:10',
         ]);
-        $mk = Matakuliah::create($request->only(['prodi_id', 'kode_mk', 'nama_mk', 'sks']));
-        return response()->json([
-            'success' => true,
-            'message' => 'Data Matakuliah Berhasil',
-            'data' => $mk->load('prodi:id,nama_prodi')
-        ], 201);
+
+        $mk = Matakuliah::create($request->only([
+            'prodi_id',
+            'dosen_id',
+            'kode_mk',
+            'nama_mk',
+            'sks',
+        ]));
+
+        return redirect()->route('matakuliahs.index')
+            ->with('success', 'Data Matakuliah berhasil ditambahkan!');
     }
+
+
 
     /**
      * Display the specified resource.

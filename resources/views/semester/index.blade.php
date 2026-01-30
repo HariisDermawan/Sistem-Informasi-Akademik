@@ -180,14 +180,10 @@
                 <div>
                     <h1 class="text-2xl font-bold text-gray-800">UNIVERSITAS PAMULANG</h1>
                 </div>
-                <!-- Header Actions -->
                 <div class="flex items-center space-x-4">
-                    <!-- Current Semester -->
                     <div class="hidden md:block px-4 py-2 bg-blue-50 text-blue-700 rounded-lg">
                         <span class="font-semibold">Semester:</span> Ganjil 2023/2024
                     </div>
-
-                    <!-- User Profile Dropdown -->
                     <div class="relative">
                         <button id="profileDropdownBtn" class="flex items-center space-x-2 focus:outline-none">
                             <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
@@ -199,8 +195,6 @@
                             </div>
                             <i class="fas fa-chevron-down text-gray-500 text-sm hidden md:block"></i>
                         </button>
-
-                        <!-- Dropdown Menu -->
                         <div id="profileDropdown"
                             class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border py-1 z-10 hidden">
                             <div class="px-4 py-3 border-b">
@@ -233,10 +227,7 @@
                     </div>
                 </div>
             </header>
-
-            <!-- Main Content Area -->
             <main class="flex-1 overflow-y-auto p-4 md:p-6">
-                <!-- Stats Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <div class="card-hover bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
                         <div class="flex justify-between items-center">
@@ -304,112 +295,104 @@
                         </div>
                     </div>
                 </div>
+                <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Semester</h2>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                        <div class="relative w-full md:w-80">
+                            <input type="text" placeholder="Cari semester..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
 
-                <!-- TABEL SEMESTER -->
-<div class="bg-white rounded-xl shadow-md p-6 mb-6">
-    <h2 class="text-xl font-bold text-gray-800 mb-4">Semester</h2>
+                        <div class="flex gap-3 w-full md:w-auto">
+                            <select
+                                class="border border-gray-300 rounded-lg px-3 py-2 w-full md:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Tampilkan Semua</option>
+                                <option value="ganjil">Ganjil</option>
+                                <option value="genap">Genap</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-50 border-b">
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">No</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Nama Semester</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Tahun Ajaran</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Status</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-4 px-4 text-gray-700">1</td>
+                                    <td class="py-4 px-4 text-gray-700">Ganjil</td>
+                                    <td class="py-4 px-4 text-gray-700">2023/2024</td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="text-green-800 font-medium bg-green-100 px-2 py-1 rounded-full text-sm">Aktif</span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800" title="Detail">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-800" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800" title="Hapus">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
 
-    <!-- Filter / Search -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-        <div class="relative w-full md:w-80">
-            <input type="text" placeholder="Cari semester..."
-                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-        </div>
-
-        <div class="flex gap-3 w-full md:w-auto">
-            <select
-                class="border border-gray-300 rounded-lg px-3 py-2 w-full md:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Tampilkan Semua</option>
-                <option value="ganjil">Ganjil</option>
-                <option value="genap">Genap</option>
-            </select>
-        </div>
-    </div>
-
-    <!-- Table -->
-    <div class="overflow-x-auto">
-        <table class="w-full">
-            <thead>
-                <tr class="bg-gray-50 border-b">
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">No</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Nama Semester</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Tahun Ajaran</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Status</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Contoh Data -->
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="py-4 px-4 text-gray-700">1</td>
-                    <td class="py-4 px-4 text-gray-700">Ganjil</td>
-                    <td class="py-4 px-4 text-gray-700">2023/2024</td>
-                    <td class="py-4 px-4">
-                        <span class="text-green-800 font-medium bg-green-100 px-2 py-1 rounded-full text-sm">Aktif</span>
-                    </td>
-                    <td class="py-4 px-4">
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-4 px-4 text-gray-700">2</td>
+                                    <td class="py-4 px-4 text-gray-700">Genap</td>
+                                    <td class="py-4 px-4 text-gray-700">2023/2024</td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="text-gray-800 font-medium bg-gray-100 px-2 py-1 rounded-full text-sm">Nonaktif</span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800" title="Detail">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-800" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800" title="Hapus">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex justify-between items-center mt-6">
+                        <div class="text-gray-500 text-sm">
+                            Menampilkan 1-2 dari 2 data semester
+                        </div>
                         <div class="flex space-x-2">
-                            <button class="text-blue-600 hover:text-blue-800" title="Detail">
-                                <i class="fas fa-eye"></i>
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                                <i class="fas fa-chevron-left"></i>
                             </button>
-                            <button class="text-green-600 hover:text-green-800" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="text-red-600 hover:text-red-800" title="Hapus">
-                                <i class="fas fa-trash"></i>
+                            <button class="px-3 py-1 bg-blue-600 text-white rounded-lg">1</button>
+                            <button
+                                class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                                <i class="fas fa-chevron-right"></i>
                             </button>
                         </div>
-                    </td>
-                </tr>
-
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="py-4 px-4 text-gray-700">2</td>
-                    <td class="py-4 px-4 text-gray-700">Genap</td>
-                    <td class="py-4 px-4 text-gray-700">2023/2024</td>
-                    <td class="py-4 px-4">
-                        <span class="text-gray-800 font-medium bg-gray-100 px-2 py-1 rounded-full text-sm">Nonaktif</span>
-                    </td>
-                    <td class="py-4 px-4">
-                        <div class="flex space-x-2">
-                            <button class="text-blue-600 hover:text-blue-800" title="Detail">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="text-green-600 hover:text-green-800" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="text-red-600 hover:text-red-800" title="Hapus">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Pagination -->
-    <div class="flex justify-between items-center mt-6">
-        <div class="text-gray-500 text-sm">
-            Menampilkan 1-2 dari 2 data semester
-        </div>
-        <div class="flex space-x-2">
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="px-3 py-1 bg-blue-600 text-white rounded-lg">1</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-    </div>
-</div>
+                    </div>
+                </div>
 
 
             </main>
-
-            <!-- Footer -->
             <footer class="py-4 px-6 border-t bg-white">
                 <div class="flex flex-col md:flex-row justify-center items-center">
                     <div class="text-gray-500 text-sm mb-2 md:mb-0">
@@ -419,8 +402,6 @@
             </footer>
         </div>
     </div>
-
-
     <script>
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const sidebar = document.getElementById('sidebar');

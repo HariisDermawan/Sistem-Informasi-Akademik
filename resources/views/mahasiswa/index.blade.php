@@ -304,156 +304,366 @@
                         </div>
                     </div>
                 </div>
-               
-               <!-- Filter and Action Buttons -->
-<div class="bg-white rounded-xl shadow-md p-6 mb-6">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-        <h2 class="text-xl font-bold text-gray-800 mb-4 md:mb-0">Daftar Mahasiswa</h2>
 
-        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
-            <!-- Search Mobile -->
-            <div class="relative md:hidden">
-                <input type="text" placeholder="Cari mahasiswa..."
-                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-            </div>
+                <!-- Filter and Action Buttons -->
+                <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4 md:mb-0">Daftar Mahasiswa</h2>
 
-            <!-- Filter by Status -->
-            <select
-                class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Semua Status</option>
-                <option value="active">Aktif</option>
-                <option value="alumni">Alumni</option>
-                <option value="cuti">Cuti</option>
-                <option value="dropout">Drop Out</option>
-            </select>
+                        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
+                            <!-- Search Mobile -->
+                            <div class="relative md:hidden">
+                                <input type="text" placeholder="Cari mahasiswa..."
+                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            </div>
 
-            <!-- Filter by Program Studi -->
-            <select
-                class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Semua Prodi</option>
-                <option value="ti">Teknik Informatika</option>
-                <option value="si">Sistem Informasi</option>
-                <option value="te">Teknik Elektro</option>
-                <option value="mi">Manajemen Informatika</option>
-            </select>
+                            <!-- Filter by Status -->
+                            <select
+                                class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Semua Status</option>
+                                <option value="active">Aktif</option>
+                                <option value="alumni">Alumni</option>
+                                <option value="cuti">Cuti</option>
+                                <option value="dropout">Drop Out</option>
+                            </select>
 
-            <!-- Filter by Angkatan -->
-            <select
-                class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Semua Angkatan</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-            </select>
+                            <!-- Filter by Program Studi -->
+                            <select
+                                class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Semua Prodi</option>
+                                <option value="ti">Teknik Informatika</option>
+                                <option value="si">Sistem Informasi</option>
+                                <option value="te">Teknik Elektro</option>
+                                <option value="mi">Manajemen Informatika</option>
+                            </select>
 
-            <!-- Export Button -->
-            <button
-                class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg flex items-center justify-center transition duration-300">
-                <i class="fas fa-file-export mr-2"></i>
-                <span>Ekspor</span>
-            </button>
-        </div>
-    </div>
+                            <!-- Filter by Angkatan -->
+                            <select
+                                class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Semua Angkatan</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                            </select>
 
-    <!-- Mahasiswa Table -->
-    <div class="overflow-x-auto">
-        <table class="w-full">
-            <thead>
-                <tr class="bg-gray-50 border-b">
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">NIM</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Nama Mahasiswa</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Program Studi</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Angkatan</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">IPK</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Status</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Aksi</th>
-                </tr>
-            </thead>
+                            <!-- Tambah Mahasiswa Button -->
+                            <button
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center justify-center transition duration-300"
+                                onclick="document.getElementById('tambahMahasiswaModal').classList.remove('hidden')">
+                                <i class="fas fa-plus mr-2"></i>
+                                <span>Tambah Mahasiswa</span>
+                            </button>
 
-            <tbody>
-                <!-- ROW TEMPLATE (contoh 1 data) -->
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="py-4 px-4 font-medium">202101001</td>
+                        </div>
+                    </div>
 
-                    <td class="py-4 px-4">
-                        <div class="flex items-center">
-                            <div
-                                class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-user text-blue-600"></i>
+                    <!-- Mahasiswa Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-50 border-b">
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">NIM</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Nama Mahasiswa</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Program Studi</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Angkatan</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">IPK</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Status</th>
+                                    <th class="text-left py-3 px-4 font-medium text-gray-700">Aksi</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @forelse ($mahasiswas as $mhs)
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="py-4 px-4 font-medium text-gray-800">
+                                            {{ $mhs->nim ?? '-' }}
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            <div class="flex items-center space-x-3">
+                                                <div
+                                                    class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                                    <i class="fas fa-user text-blue-600"></i>
+                                                </div>
+                                                <div class="flex flex-col justify-center">
+                                                    <span class="font-medium text-gray-800 leading-tight">
+                                                        {{ $mhs->nama_mahasiswa }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-4 text-gray-800">
+                                            {{ $mhs->prodi->nama_prodi ?? '-' }}
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            <span
+                                                class="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
+                                                {{ $mhs->angkatan ?? '-' }}
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            <span class="font-bold text-gray-800">
+                                                {{ $mhs->ipk ?? '-' }}
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            @php
+                                                $status = strtolower($mhs->status ?? 'aktif');
+                                                $statusClasses = match ($status) {
+                                                    'aktif' => 'bg-green-100 text-green-700',
+                                                    'cuti' => 'bg-yellow-100 text-yellow-700',
+                                                    'nonaktif' => 'bg-red-100 text-red-700',
+                                                    default => 'bg-gray-100 text-gray-700',
+                                                };
+                                            @endphp
+                                            <span
+                                                class="px-3 py-1 rounded-full text-sm font-medium {{ $statusClasses }}">
+                                                {{ ucfirst($mhs->status ?? '-') }}
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            <div class="flex space-x-2 items-center">
+                                                <button class="text-blue-600 hover:text-blue-800" title="Lihat Detail"
+                                                    data-id="{{ $mhs->id }}">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+
+                                                <button class="text-green-600 hover:text-green-800 btn-edit"
+                                                    title="Edit" data-id="{{ $mhs->id }}"
+                                                    data-nama="{{ $mhs->nama_mahasiswa }}"
+                                                    data-nim="{{ $mhs->nim }}" data-prodi="{{ $mhs->prodi_id }}"
+                                                    data-angkatan="{{ $mhs->angkatan }}">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+
+                                                <form action="{{ route('mahasiswas.destroy', $mhs->id) }}"
+                                                    method="POST" class="inline-block"
+                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $mhs->nama_mahasiswa }}?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-600 hover:text-red-800">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="py-6 text-center text-gray-500">
+                                            Data mahasiswa masih kosong!
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-between items-center mt-6">
+                        <div class="text-gray-500 text-sm">
+                            Menampilkan 0 dari 0 mahasiswa
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="px-3 py-1 bg-green-600 text-white rounded-lg">1</button>
+                            <button
+                                class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
+                            <button
+                                class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">3</button>
+                            <button
+                                class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">...</button>
+                            <button
+                                class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">25</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal Edit Mahasiswa - Biru -->
+                <div id="editMahasiswaModal"
+                    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
+                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
+                        <!-- Tombol Tutup -->
+                        <button onclick="document.getElementById('editMahasiswaModal').classList.add('hidden')"
+                            class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+
+                        <h3 class="text-xl font-semibold text-gray-800 mb-5 text-center">Edit Mahasiswa</h3>
+
+                        <form method="POST" id="editMahasiswaForm">
+                            @csrf
+                            @method('PUT')
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-700 mb-1 font-medium">Nama Mahasiswa</label>
+                                    <input type="text" name="nama_mahasiswa" id="editNama"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1 font-medium">NIM</label>
+                                    <input type="text" name="nim" id="editNim"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1 font-medium">Program Studi</label>
+                                    <select name="prodi_id" id="editProdi"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required>
+                                        <option value="">Pilih Prodi</option>
+                                        @foreach ($prodis as $prodi)
+                                            <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1 font-medium">Angkatan</label>
+                                    <input type="number" name="angkatan" id="editAngkatan"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end space-x-3 mt-6">
+                                <button type="button"
+                                    onclick="document.getElementById('editMahasiswaModal').classList.add('hidden')"
+                                    class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-medium">Batal</button>
+                                <button type="submit"
+                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <!-- Modal View Mahasiswa - Biru -->
+                <div id="viewMahasiswaModal"
+                    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
+                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
+                        <!-- Tombol Tutup -->
+                        <button onclick="document.getElementById('viewMahasiswaModal').classList.add('hidden')"
+                            class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+
+                        <!-- Header Biru -->
+                        <h3 class="text-xl font-semibold text-black  p-3 rounded-lg text-center mb-5">
+                            Detail Mahasiswa
+                        </h3>
+
+                        <!-- Form View -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 font-medium">Nama Mahasiswa</label>
+                                <input type="text" id="viewNama"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    readonly>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-800">Nama Mahasiswa</p>
-                                <p class="text-sm text-gray-500">email@student.ac.id</p>
+                                <label class="block text-gray-700 font-medium">NIM</label>
+                                <input type="text" id="viewNIM"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    readonly>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium">Program Studi</label>
+                                <input type="text" id="viewProdi"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    readonly>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium">Angkatan</label>
+                                <input type="text" id="viewAngkatan"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    readonly>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium">Status</label>
+                                <input type="text" id="viewStatus"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    readonly>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium">IPK</label>
+                                <input type="text" id="viewIPK"
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    readonly>
                             </div>
                         </div>
-                    </td>
 
-                    <td class="py-4 px-4">Teknik Informatika</td>
-
-                    <td class="py-4 px-4">
-                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
-                            2021
-                        </span>
-                    </td>
-
-                    <td class="py-4 px-4">
-                        <span class="font-bold text-gray-800">3.78</span>
-                    </td>
-
-                    <td class="py-4 px-4">
-                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700">
-                            Aktif
-                        </span>
-                    </td>
-
-                    <td class="py-4 px-4">
-                        <div class="flex space-x-2">
-                            <button class="text-blue-600 hover:text-blue-800" title="Lihat Detail">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="text-green-600 hover:text-green-800" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="text-red-600 hover:text-red-800" title="Hapus">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                        <!-- Tombol Tutup Biru -->
+                        <div class="flex justify-end mt-6">
+                            <button onclick="document.getElementById('viewMahasiswaModal').classList.add('hidden')"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">Tutup</button>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </div>
 
-                <!-- Jika data kosong -->
-                <tr>
-                    <td colspan="7" class="py-6 text-center text-gray-500">
-                        Data mahasiswa masih kosong!
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 
-    <!-- Pagination -->
-    <div class="flex justify-between items-center mt-6">
-        <div class="text-gray-500 text-sm">
-            Menampilkan 0 dari 0 mahasiswa
-        </div>
+                <!-- Modal Tambah Mahasiswa - Biru -->
+                <div id="tambahMahasiswaModal"
+                    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
+                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
+                        <!-- Tombol Tutup -->
+                        <button onclick="document.getElementById('tambahMahasiswaModal').classList.add('hidden')"
+                            class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
 
-        <div class="flex space-x-2">
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="px-3 py-1 bg-green-600 text-white rounded-lg">1</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">3</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">...</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">25</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-    </div>
-</div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-5 text-center">Tambah Mahasiswa</h3>
+
+                        <form method="POST" action="{{ route('mahasiswas.store') }}">
+                            @csrf
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-700 mb-1 font-medium">Nama Mahasiswa</label>
+                                    <input type="text" name="nama_mahasiswa" value="{{ old('nama_mahasiswa') }}"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1 font-medium">NIM</label>
+                                    <input type="text" name="nim" value="{{ old('nim') }}"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1 font-medium">Program Studi</label>
+                                    <select name="prodi_id" required
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="">Pilih Prodi</option>
+                                        @foreach ($prodis as $prodi)
+                                            <option value="{{ $prodi->id }}"
+                                                {{ old('prodi_id') == $prodi->id ? 'selected' : '' }}>
+                                                {{ $prodi->nama_prodi }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1 font-medium">Angkatan</label>
+                                    <input type="number" name="angkatan" value="{{ old('angkatan') }}"
+                                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end space-x-3 mt-6">
+                                <button type="button"
+                                    onclick="document.getElementById('tambahMahasiswaModal').classList.add('hidden')"
+                                    class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-medium">Batal</button>
+                                <button type="submit"
+                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">Simpan</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
 
 
             </main>
@@ -471,6 +681,91 @@
 
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('button[title="Lihat Detail"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const row = btn.closest('tr');
+
+                    // Ambil data dari row
+                    const nim = row.children[0].innerText.trim();
+                    const nama = row.children[1].querySelector('span').innerText.trim();
+                    const prodi = row.children[2].innerText.trim();
+                    const angkatan = row.children[3].innerText.trim();
+                    const ipk = row.children[4].innerText.trim();
+                    const status = row.children[5].innerText.trim();
+
+                    // Isi modal
+                    document.getElementById('viewNama').value = nama;
+                    document.getElementById('viewNIM').value = nim;
+                    document.getElementById('viewProdi').value = prodi;
+                    document.getElementById('viewAngkatan').value = angkatan;
+                    document.getElementById('viewIPK').value = ipk;
+                    document.getElementById('viewStatus').value = status;
+
+                    // Tampilkan modal
+                    document.getElementById('viewMahasiswaModal').classList.remove('hidden');
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('button[title="Edit"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const row = btn.closest('tr');
+
+                    const id = btn.dataset.id;
+                    const nim = row.children[0].innerText.trim();
+                    const nama = row.children[1].querySelector('span').innerText.trim();
+                    const prodi = row.children[2].innerText.trim();
+                    const angkatan = row.children[3].innerText.trim();
+
+                    document.getElementById('editMahasiswaId').value = id;
+                    document.getElementById('editNIM').value = nim;
+                    document.getElementById('editNama').value = nama;
+                    document.getElementById('editAngkatan').value = angkatan;
+
+                    // Set prodi select
+                    const prodiSelect = document.getElementById('editProdi');
+                    Array.from(prodiSelect.options).forEach(option => {
+                        option.selected = option.text === prodi;
+                    });
+
+                    document.getElementById('editMahasiswaModal').classList.remove('hidden');
+                });
+            });
+
+            // Optional: submit form via Ajax
+            const editForm = document.getElementById('editMahasiswaForm');
+            editForm.addEventListener('submit', function(e) {
+                // e.preventDefault();
+                // Bisa ditambahkan ajax jika mau tanpa reload halaman
+            });
+        });
+
+        // Edit Mahasiswa
+        const editButtons = document.querySelectorAll('.btn-edit');
+        editButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const nama = btn.dataset.nama;
+                const nim = btn.dataset.nim;
+                const prodi = btn.dataset.prodi;
+                const angkatan = btn.dataset.angkatan;
+
+                document.getElementById('editNama').value = nama;
+                document.getElementById('editNim').value = nim;
+                document.getElementById('editProdi').value = prodi;
+                document.getElementById('editAngkatan').value = angkatan;
+
+                const form = document.getElementById('editMahasiswaForm');
+                form.action = `/mahasiswas/${id}`; // pastikan sesuai resource route
+
+                document.getElementById('editMahasiswaModal').classList.remove('hidden');
+            });
+        });
+
+
+
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
@@ -509,6 +804,14 @@
             logoutModal.classList.add('hidden');
         });
     </script>
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('tambahMahasiswaModal').classList.remove('hidden');
+            });
+        </script>
+    @endif
+
 </body>
 
 </html>

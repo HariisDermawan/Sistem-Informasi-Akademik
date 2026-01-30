@@ -1,13 +1,12 @@
 <?php
 
-use App\Models\Presensi_dosen;
-use App\Models\Presensi_mahasiswa;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KrsController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
@@ -29,9 +28,9 @@ Route::post('/login', [AuthController::class, 'store'])
 Route::post('/logout', [AuthController::class, 'destroy'])
     ->middleware('auth:sanctum')
     ->name('logout');
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth:sanctum')->name('dashboard');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth:sanctum')->name('dashboard');
+
 Route::resources([
     'dosens' => DosenController::class,
     'mahasiswas' => MahasiswaController::class,

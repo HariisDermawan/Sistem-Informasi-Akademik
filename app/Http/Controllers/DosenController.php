@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Dosen;
+use App\Models\Prodi;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -11,11 +13,13 @@ class DosenController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */ 
+     */
     public function index()
     {
+        $prodis = Prodi::all();
         $dosens = Dosen::with(['user:id,name,email', 'prodi:id,nama_prodi'])->get();
-        return view('dosen.index', compact('dosens'));
+        $semesterAktif = Semester::where('is_aktif', 1)->first();
+        return view('dosen.index', compact('dosens', 'semesterAktif', 'prodis'));
     }
 
     /**
@@ -36,49 +40,51 @@ class DosenController extends Controller
             'nama_dosen' => 'required|string|max:255',
             'prodi_id' => 'required|exists:prodis,id',
         ];
+
         $request->validate($rules);
+
         $userFields = ['name', 'email', 'password'];
         $userData = [];
+
         foreach ($userFields as $field) {
             if ($request->has($field)) {
                 $userData[$field] = $request->input($field);
             }
         }
+        $userData['password'] = bcrypt($userData['password']);
+
         $user = User::create($userData);
+
         $dosenFields = ['prodi_id', 'nidn', 'nama_dosen'];
         $dosenData = ['user_id' => $user->id];
+
         foreach ($dosenFields as $field) {
             if ($request->has($field)) {
                 $dosenData[$field] = $request->input($field);
             }
         }
-        $dosen = Dosen::create($dosenData);
-        return response()->json([
-            'success' => true,
-            'message' => 'Dosen berhasil dibuat',
-            'data' => $dosen->load(['user:id,name,email', 'prodi:id,nama_prodi'])
-        ]);
+
+        Dosen::create($dosenData);
+
+        return redirect()
+            ->route('dosens.index')
+            ->with('success', 'Dosen berhasil dibuat');
     }
+
 
     /**
      * Display the specified resource.
      */
-    public function show(Dosen $dosen, $id)
+    public function show($id)
     {
-        $dosen = Dosen::with(['user:id,name,email', 'prodi:id,nama_prodi'])->find($id);
-
-        if (!$dosen) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Dosen tidak ditemukan'
-            ], 404);
-        }
+        $dosen = Dosen::with(['user:id,name,email', 'prodi:id,nama_prodi'])->findOrFail($id);
 
         return response()->json([
             'success' => true,
             'data' => $dosen
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -91,55 +97,49 @@ class DosenController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dosen $dosen, $id)
-    {
-        $dosen = Dosen::find($id);
-        if (!$dosen) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Dosen tidak ditemukan'
-            ], 404);
-        }
-        $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'email' => ['sometimes', 'email', Rule::unique('users', 'email')->ignore($dosen->user_id)],
-            'password' => 'sometimes|string|min:6',
-            'nidn' => ['sometimes', 'string', Rule::unique('dosens', 'nidn')->ignore($dosen->id)],
-            'nama_dosen' => 'sometimes|string|max:255',
-            'prodi_id' => 'sometimes|exists:prodis,id',
-        ]);
-        $userData = [];
-        if ($request->has('name')) $userData['name'] = $request->name;
-        if ($request->has('email')) $userData['email'] = $request->email;
-        if ($request->has('password')) $userData['password'] = $request->password;
-        if (!empty($userData)) $dosen->user()->update($userData);
-        $dosenData = $request->only(['nidn', 'nama_dosen', 'prodi_id']);
-        $dosen->update($dosenData);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Dosen berhasil diperbarui',
-            'data' => $dosen->load(['user:id,name,email', 'prodi:id,nama_prodi'])
+    public function update(Request $request, $id)
+    {
+        $dosen = Dosen::with('user')->findOrFail($id);
+
+        $request->validate([
+            'nama_dosen' => 'required|string|max:255',
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($dosen->user_id)],
+            'nidn' => ['required', 'string', Rule::unique('dosens', 'nidn')->ignore($dosen->id)],
+            'prodi_id' => 'required|exists:prodis,id',
+            'status' => 'required|in:aktif,cuti,nonaktif',
         ]);
+
+        // update tabel users
+        $dosen->user->update([
+            'email' => $request->email,
+        ]);
+
+        // update tabel dosens
+        $dosen->update([
+            'nama_dosen' => $request->nama_dosen,
+            'nidn' => $request->nidn,
+            'prodi_id' => $request->prodi_id,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('dosens.index')->with('success', 'Dosen berhasil diperbarui!');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dosen $dosen, $id)
+    public function destroy(Dosen $dosen)
     {
-        $dosen = Dosen::find($id);
-        if (!$dosen) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Dosen tidak ditemukan'
-            ], 404);
+        // cek apakah dosen masih dipakai di perkuliahan
+        if ($dosen->perkuliahans()->exists()) {
+            return redirect()->route('dosens.index')
+                ->with('error', 'Dosen tidak bisa dihapus karena masih terhubung dengan data perkuliahan!');
         }
+
         $dosen->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Dosen berhasil dihapus'
-        ]);
+        return redirect()->route('dosens.index')->with('success', 'Dosen berhasil dihapus!');
     }
 }

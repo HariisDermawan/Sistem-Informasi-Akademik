@@ -349,152 +349,81 @@
                 <option value="mi">Manajemen Informatika</option>
             </select>
 
-            <!-- Button Tambah -->
-            <button
-                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center justify-center transition duration-300">
-                <i class="fas fa-plus mr-2"></i>
-                <span>Tambah</span>
-            </button>
+            
 
-            <!-- Export -->
-            <button
-                class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg flex items-center justify-center transition duration-300">
-                <i class="fas fa-file-export mr-2"></i>
-                <span>Ekspor</span>
-            </button>
+            <button 
+    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center justify-center transition duration-300"
+    onclick="document.getElementById('modal-tambah-mk').classList.remove('hidden')">
+    <i class="fas fa-plus mr-2"></i> Tambah Mata Kuliah
+</button>
         </div>
     </div>
 
-    <!-- Table -->
-    <div class="overflow-x-auto">
-        <table class="w-full">
-            <thead>
-                <tr class="bg-gray-50 border-b">
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Kode MK</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Nama Mata Kuliah</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">SKS</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Semester</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Program Studi</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Dosen Pengampu</th>
-                    <th class="text-left py-3 px-4 font-medium text-gray-700">Aksi</th>
-                </tr>
-            </thead>
+   <!-- Table Matakuliah -->
+<div class="overflow-x-auto">
+    <table class="w-full">
+        <thead>
+            <tr class="bg-gray-50 border-b">
+                <th class="text-left py-3 px-4 font-medium text-gray-700">Kode MK</th>
+                <th class="text-left py-3 px-4 font-medium text-gray-700">Nama Mata Kuliah</th>
+                <th class="text-left py-3 px-4 font-medium text-gray-700">SKS</th>
+                <th class="text-left py-3 px-4 font-medium text-gray-700">Program Studi</th>
+                <th class="text-left py-3 px-4 font-medium text-gray-700">Dosen Pengampu</th>
+                <th class="text-left py-3 px-4 font-medium text-gray-700">Aksi</th>
+            </tr>
+        </thead>
 
-            <tbody>
-                <!-- Dummy Row 1 -->
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="py-4 px-4 font-medium">TI101</td>
-                    <td class="py-4 px-4">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-book text-purple-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-800">Algoritma & Pemrograman</p>
-                                <p class="text-sm text-gray-500">Mata kuliah dasar pemrograman</p>
-                            </div>
+        <tbody>
+            @forelse($matakuliahs as $mk)
+            <tr class="border-b hover:bg-gray-50">
+                <td class="py-4 px-4 font-medium">{{ $mk->kode_mk }}</td>
+                <td class="py-4 px-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-book text-blue-600"></i>
                         </div>
-                    </td>
-                    <td class="py-4 px-4">
-                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">3</span>
-                    </td>
-                    <td class="py-4 px-4">
-                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">1</span>
-                    </td>
-                    <td class="py-4 px-4">Teknik Informatika</td>
-                    <td class="py-4 px-4">Bapak Ahmad</td>
-                    <td class="py-4 px-4">
-                        <div class="flex space-x-2">
-                            <button class="text-blue-600 hover:text-blue-800" title="Lihat Detail">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="text-green-600 hover:text-green-800" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="text-red-600 hover:text-red-800" title="Hapus">
+                        <div>
+                            <p class="font-medium text-gray-800">{{ $mk->nama_mk }}</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="py-4 px-4">
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">{{ $mk->sks }}</span>
+                </td>
+               
+                <td class="py-4 px-4">{{ $mk->prodi->nama_prodi ?? '-' }}</td>
+<td class="py-4 px-4">
+    {{ $mk->dosen->nama_dosen ?? '-' }}
+</td>
+                <td class="py-4 px-4">
+                    <div class="flex space-x-2">
+                        <!-- View -->
+                        <a href="" class="text-blue-600 hover:text-blue-800" title="Lihat Detail">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <!-- Edit -->
+                        <a href="" class="text-green-600 hover:text-green-800" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <!-- Delete -->
+                        <form action="" method="POST" onsubmit="return confirm('Yakin hapus matakuliah ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 hover:text-red-800" title="Hapus">
                                 <i class="fas fa-trash"></i>
                             </button>
-                        </div>
-                    </td>
-                </tr>
-
-                <!-- Dummy Row 2 -->
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="py-4 px-4 font-medium">SI205</td>
-                    <td class="py-4 px-4">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-book text-indigo-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-800">Basis Data</p>
-                                <p class="text-sm text-gray-500">Konsep database relasional</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="py-4 px-4">
-                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">3</span>
-                    </td>
-                    <td class="py-4 px-4">
-                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">3</span>
-                    </td>
-                    <td class="py-4 px-4">Sistem Informasi</td>
-                    <td class="py-4 px-4">Ibu Siti</td>
-                    <td class="py-4 px-4">
-                        <div class="flex space-x-2">
-                            <button class="text-blue-600 hover:text-blue-800" title="Lihat Detail">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="text-green-600 hover:text-green-800" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="text-red-600 hover:text-red-800" title="Hapus">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-
-                <!-- Dummy Row 3 -->
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="py-4 px-4 font-medium">TE301</td>
-                    <td class="py-4 px-4">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-book text-green-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-800">Elektronika Dasar</p>
-                                <p class="text-sm text-gray-500">Rangkaian listrik & komponen</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="py-4 px-4">
-                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">2</span>
-                    </td>
-                    <td class="py-4 px-4">
-                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">4</span>
-                    </td>
-                    <td class="py-4 px-4">Teknik Elektro</td>
-                    <td class="py-4 px-4">Bapak Dedi</td>
-                    <td class="py-4 px-4">
-                        <div class="flex space-x-2">
-                            <button class="text-blue-600 hover:text-blue-800" title="Lihat Detail">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="text-green-600 hover:text-green-800" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="text-red-600 hover:text-red-800" title="Hapus">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="7" class="text-center py-4">Belum ada data matakuliah</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
 
     <!-- Pagination -->
     <div class="flex justify-between items-center mt-6">
@@ -519,6 +448,77 @@
 
 </div>
 
+
+<!-- Modal Tambah Matakuliah -->
+<div id="modal-tambah-mk" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-lg p-6 relative">
+        <!-- Close button -->
+        <button class="absolute top-3 right-3 text-gray-500 hover:text-gray-700" onclick="document.getElementById('modal-tambah-mk').classList.add('hidden')">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Tambah Mata Kuliah</h2>
+
+        <form action="{{ route('matkul.store') }}" method="POST">
+            @csrf
+
+            <!-- Prodi -->
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Program Studi</label>
+                <select name="prodi_id" required
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">-- Pilih Prodi --</option>
+                    @foreach(\App\Models\Prodi::all() as $prodi)
+                        <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Dosen -->
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Dosen Pengampu</label>
+                <select name="dosen_id" required
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">-- Pilih Dosen --</option>
+                    @foreach(\App\Models\Dosen::all() as $dosen)
+                        <option value="{{ $dosen->id }}">{{ $dosen->nama_dosen }} ({{ $dosen->nidn }})</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Kode Mata Kuliah -->
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Kode Mata Kuliah</label>
+                <input type="text" name="kode_mk" required
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="TI101">
+            </div>
+
+            <!-- Nama Mata Kuliah -->
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Nama Mata Kuliah</label>
+                <input type="text" name="nama_mk" required
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Algoritma & Pemrograman">
+            </div>
+
+            <!-- SKS -->
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">SKS</label>
+                <input type="number" name="sks" required min="1" max="10"
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="3">
+            </div>
+
+            <!-- Submit -->
+            <div class="flex justify-end space-x-2">
+                <button type="button" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+                    onclick="document.getElementById('modal-tambah-mk').classList.add('hidden')">Batal</button>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
             </main>
 
             <!-- Footer -->

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use id;
+use App\Models\Prodi;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class MahasiswaController extends Controller
@@ -13,9 +16,25 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswa = Mahasiswa::with(['user', 'prodi'])->get();
-        $totalMahasiswa = $mahasiswa->count();
-        return view('mahasiswa.index', compact('mahasiswa'));
+        $mahasiswas = Mahasiswa::with(['user', 'prodi', 'krs.nilai'])->get();
+        $mahasiswas->map(function ($mhs) {
+            $totalNilai = 0;
+            $jumlahMatkul = 0;
+            foreach ($mhs->krs as $krs) {
+                if ($krs->nilai) {
+                    $totalNilai += $krs->nilai->nilai_angka;
+                    $jumlahMatkul++;
+                }
+            }
+            $mhs->ipk = $jumlahMatkul > 0 ? round($totalNilai / $jumlahMatkul, 2) : null;
+            $mhs->status = $jumlahMatkul > 0 ? 'Aktif' : 'Tidak Aktif';
+            return $mhs;
+        });
+
+        // Kirim data prodi ke view
+        $prodis = Prodi::all();
+
+        return view('mahasiswa.index', compact('mahasiswas', 'prodis'));
     }
 
     /**
@@ -32,32 +51,28 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id'        => 'required|exists:users,id',
             'prodi_id'       => 'required|exists:prodis,id',
             'nim'            => 'required|unique:mahasiswas,nim',
             'nama_mahasiswa' => 'required|string|max:255',
-            'angkatan'       => 'required|integer',
+            'angkatan'       => 'required|integer|min:2000|max:' . date('Y'),
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validasi Gagal',
-                'errors'  => $validator->errors()
-            ], 422);
+            return redirect()->route('mahasiswas.index') // redirect ke halaman mahasiswa
+                ->withErrors($validator)
+                ->withInput();
         }
 
-        $mahasiswa = Mahasiswa::create($request->all());
+        Mahasiswa::create([
+            'user_id'        => Auth::id(),
+            'prodi_id'       => $request->prodi_id,
+            'nim'            => $request->nim,
+            'nama_mahasiswa' => $request->nama_mahasiswa,
+            'angkatan'       => $request->angkatan,
+        ]);
 
-        if ($mahasiswa) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Berhasil Disimpan',
-                'data'    => $mahasiswa
-            ], 201);
-        }
+        return redirect()->route('mahasiswas.index')->with('success', 'Mahasiswa berhasil ditambahkan!');
     }
-
 
     /**
      * Display the specified resource.
@@ -88,38 +103,29 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Cari mahasiswa berdasarkan ID
         $mahasiswa = Mahasiswa::find($id);
-
         if (!$mahasiswa) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data Tidak ditemukan!'
-            ], 404);
+            return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan!');
         }
-        $validator = Validator::make($request->all(), [
-            'user_id'        => 'sometimes|required|exists:users,id',
-            'prodi_id'       => 'sometimes|required|exists:prodis,id',
-            'nim'            => 'sometimes|required|unique:mahasiswas,nim,' . $id,
-            'nama_mahasiswa' => 'sometimes|required|string|max:255',
-            'angkatan'       => 'sometimes|required|integer',
+
+        // Validasi input
+        $request->validate([
+            'nama_mahasiswa' => 'required|string|max:255',
+            'nim'            => 'required|unique:mahasiswas,nim,' . $mahasiswa->id,
+            'prodi_id'       => 'required|exists:prodis,id',
+            'angkatan'       => 'required|integer|min:2000|max:' . date('Y'),
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Update Gagal',
-                'errors'  => $validator->errors()
-            ], 422);
-        }
-        $mahasiswa->update($request->all());
+        // Update data mahasiswa
+        $mahasiswa->update([
+            'nama_mahasiswa' => $request->nama_mahasiswa,
+            'nim'            => $request->nim,
+            'prodi_id'       => $request->prodi_id,
+            'angkatan'       => $request->angkatan,
+        ]);
 
-        $mahasiswa = $mahasiswa->fresh(['user', 'prodi']);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Data Berhasil Diperbarui',
-            'data'    => $mahasiswa
-        ], 200);
+        return redirect()->back()->with('success', 'Data mahasiswa berhasil diperbarui!');
     }
     /**
      * Remove the specified resource from storage.
@@ -129,21 +135,13 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::find($id);
 
         if (!$mahasiswa) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data Tidak ditemukan!'
-            ], 404);
+            return redirect()->back()->with('error', 'Mahasiswa tidak ditemukan!');
         }
+
         $mahasiswa->krs()->delete();
-        if ($mahasiswa->delete()) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Mahasiswa dan KRS terkait berhasil dihapus'
-            ], 200);
-        }
-        return response()->json([
-            'success' => false,
-            'message' => 'Gagal menghapus data!'
-        ], 500);
+
+        $mahasiswa->delete();
+
+        return redirect()->back()->with('success', 'Mahasiswa berhasil dihapus!');
     }
 }
